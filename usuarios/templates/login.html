@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col-md-3">
+
+    </div>
+
+    <div class="col-md">
+        <h1 class="text-center">Login</h1>
+        <br>
+
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li style="list-style: none;" {% if message.tags %}class="alert {{message.tags}}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+
+        {% if required == '1' %}
+            <div class="alert alert-danger" role="alert">
+                Você não fez login ainda. Faça agora.
+            </div>
+        {% endif %}
+
+        {% if required == '3' %}
+            <div class="alert alert-danger" role="alert">
+                Você saiu da conta.
+            </div>
+
+            <div class="alert alert-success" role="alert">
+                Volte sempre!
+            </div>
+        {% endif %}
+
+        <br>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <label>E-mail:</label>
+            <input class="form-control" type="email" placeholder="Email..." name="email">
+            <br>
+            <br>
+            <label>Senha:</label>
+            <input class="form-control" type="password" placeholder="Senha..." name="senha">
+            <br>
+            <br>
+            <input class="btn btn-success col-3" type="submit" value="login">
+            <a class="btn btn-warning col-3" href="/auth/cadastro/">Cadastro</a>
+            <br>
+        </form>
+    </div>
+
+    <div class="col-md-3">
+
+    </div>
+
+</div>
+{% endblock %}
